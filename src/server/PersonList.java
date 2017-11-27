@@ -10,5 +10,5 @@ public interface PersonList extends Remote {
      * Diese Interface wird sowohl vom server
      * als auch vom client angesprochen
      */
-    ArrayList<String> getPersonList() throws RemoteException;
+    ArrayList<String> getPersonList(String name) throws RemoteException;
 }
