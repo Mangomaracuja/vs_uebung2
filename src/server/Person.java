@@ -2,14 +2,14 @@ package server;
 
 import exceptions.NotComparebleException;
 
-public class Person implements Comparable{
+public class Person implements Comparable {
     private String name;
     private String vorname;
 
     /**
      * erzeugt neues Objekt Person mit vollständigem Namen
      *
-     * @param name Nachname der Person
+     * @param name    Nachname der Person
      * @param vorname Vorname der Person
      */
     public Person(String name, String vorname) {
@@ -33,11 +33,11 @@ public class Person implements Comparable{
      * @throws NotComparebleException wenn nicht verglichen werden kann
      */
     @Override
-    public int compareTo(Object o) throws NotComparebleException{
+    public int compareTo(Object o) throws NotComparebleException {
         if (!(o instanceof Person)) throw new NotComparebleException(NotComparebleException.MESSAGE_1);
         Person p = (Person) o;
-        if (name.compareTo(p.getName())<0)return -1;
-        else if (name.compareTo(p.getName())>0)return 1;
+        if (name.compareTo(p.getName()) < 0) return -1;
+        else if (name.compareTo(p.getName()) > 0) return 1;
         else return vorname.compareTo(p.getVorname());
     }
 

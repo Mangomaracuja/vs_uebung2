@@ -26,6 +26,7 @@ public class ServerMain {
 
     /**
      * Main legt beim Programmstart ein Objekt von sich selbst an und für die createServer Methode aus mit eigentlicher logik
+     *
      * @param args
      */
     public static void main(String[] args) {

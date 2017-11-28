@@ -39,11 +39,11 @@ public class PersonListLocal {
     /**
      * Liefert die auf dem server befindliche Personenliste
      */
-    public ArrayList<String> getPersonList(String name) {
+    public ArrayList<ArrayList<String>> getPersonList(ArrayList<String> names) {
         if (instance != null) {
             try {
                 // über das Interface wird die Personenliste von dem server geladen
-                return personList.getPersonsByName(name);
+                return personList.getPersonsByName(names);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }

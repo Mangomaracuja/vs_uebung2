@@ -22,7 +22,14 @@ public class PersonListImpl extends UnicastRemoteObject implements PersonList {
      * füllen der PersonenListe
      */
     private void fillPersonList() {
-        //todo: hier die Personenliste füllen, gegebenfalls aus einer Datei einlesen, wenn dann Doc-Kommentar anpassen
+        personList.add(new Person("Dung", "Kanuel"));
+        personList.add(new Person("Stolz", "Manuel"));
+        personList.add(new Person("Stolz", "Alexander"));
+        personList.add(new Person("WirdWirth", "WerNixWird"));
+        personList.add(new Person("Triem", "Simon"));
+        personList.add(new Person("Triem", "Simone"));
+        personList.add(new Person("Triem", "Nadia"));
+        personList.add(new Person("Wirth", "Chris"));
         Collections.sort(personList);
     }
 
@@ -32,10 +39,16 @@ public class PersonListImpl extends UnicastRemoteObject implements PersonList {
      * diese (entfernte) Methode zu
      */
     @Override
-    public ArrayList<String> getPersonsByName(String name) throws RemoteException {
-        ArrayList<String> resultList = new ArrayList<>();
+    public ArrayList<ArrayList<String>> getPersonsByName(ArrayList<String> namen) throws RemoteException {
+        ArrayList<ArrayList<String>> resultList = new ArrayList<>();
 
-        //todo: resultList mit der Methode Person.toString() mit übereinstimmenden Nachnamen füllen. Wenn keine übereinstimmung -> return leere liste;
+        for (String name : namen) {
+            ArrayList<String> resultNames = new ArrayList<>();
+            for (Person p : personList) {
+                if (p.getName().equals(name)) resultNames.add(p.toString());
+            }
+            resultList.add(resultNames);
+        }
 
         return resultList;
     }
