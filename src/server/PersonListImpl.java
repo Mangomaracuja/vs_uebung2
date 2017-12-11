@@ -1,9 +1,14 @@
 package server;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.StringTokenizer;
 
 public class PersonListImpl extends UnicastRemoteObject implements PersonList {
 
@@ -22,15 +27,26 @@ public class PersonListImpl extends UnicastRemoteObject implements PersonList {
      * füllen der PersonenListe
      */
     private void fillPersonList() {
-        personList.add(new Person("Dung", "Kanuel"));
-        personList.add(new Person("Stolz", "Manuel"));
-        personList.add(new Person("Stolz", "Alexander"));
-        personList.add(new Person("WirdWirth", "WerNixWird"));
-        personList.add(new Person("Triem", "Simon"));
-        personList.add(new Person("Triem", "Simone"));
-        personList.add(new Person("Triem", "Nadia"));
-        personList.add(new Person("Wirth", "Chris"));
+        try {
+            FileReader fr = new FileReader("C:\\Users\\Manuel\\Documents\\vs\\vs_uebung2\\src\\server\\Namen.csv");
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            do {
+                line = br.readLine();
+                addPerson(line);
+            } while (line != null);
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Collections.sort(personList);
+    }
+
+    private void addPerson(String line){
+        if(line == null) return;
+        StringTokenizer tokenizer = new StringTokenizer(line,";");
+        Person p = new Person(tokenizer.nextToken(";"),tokenizer.nextToken(";"));
+        personList.add(p);
     }
 
     /**

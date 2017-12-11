@@ -1,7 +1,9 @@
 package server;
 
 import java.io.IOException;
-import java.rmi.Naming;
+import java.rmi.AccessException;
+import java.rmi.AlreadyBoundException;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
@@ -13,13 +15,17 @@ public class ServerMain {
     private void createServer() {
         try {
             // Namensdienst (Registry) mit dem Standardport 1099 registrieren
-            LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
+            Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
             System.out.println("server : Registry wurde erzeugt.");
 
-            Naming.rebind("PersonList", new PersonListImpl());
+            registry.bind("PersonList", new PersonListImpl());
             System.out.println("server : Personenliste registriert");
 
-        } catch (IOException e) {
+        } catch (AlreadyBoundException e) {
+            e.printStackTrace();
+        } catch (AccessException e) {
+            e.printStackTrace();
+        } catch (RemoteException e) {
             e.printStackTrace();
         }
     }
